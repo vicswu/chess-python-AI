@@ -6,7 +6,7 @@ Classic chess made using [Pygame](https://www.pygame.org/wiki/about) with an AI 
 ### How to play
 1. Install Python from [here](https://www.python.org/downloads)
 2. Install PyGame 1.9.X from [here](http://www.pygame.org/download.shtml)
-3. Clone this repository: `https://github.com/kailongli27/flappy-bird.git` or click `Download ZIP` in the Code tab and extract it.
+3. Clone this repository: `https://github.com/vicswu/chess-python-AI.git` or click `Download ZIP` in the Code tab and extract it.
 4. Run `python3 Chess/main.py` from the repo's root directory
 5. Have fun!
 
