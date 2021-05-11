@@ -1,6 +1,6 @@
 import pygame as py
-from engine import GameState
-from engine import Move
+from game import GameState
+from game import Move
 
 WIDTH = HEIGHT = 512
 DIMENSION = 8
@@ -84,13 +84,13 @@ def main():
 
         drawGameState(screen, gs, validMoves, sqSelected)
 
-        if (gs.inCheck and len(validMoves) == 0):
+        if gs.isCheckmate:
             gameOver = True
             if gs.whiteToMove:
-                drawText(screen, "White wins by checkmate.")
-            else:
                 drawText(screen, "Black wins by checkmate.")
-        elif len(validMoves) == 0:
+            else:
+                drawText(screen, "White wins by checkmate.")
+        elif gs.isStalemate:
             gameOver = True
             drawText(screen, "Stalemate.")
 
