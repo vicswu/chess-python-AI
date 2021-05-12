@@ -1,7 +1,7 @@
 import pygame as py
-from game import GameState
-from game import Move
-
+from game import GameState # type: ignore
+from game import Move # type: ignore
+from robot import Robot # type: ignore
 WIDTH = HEIGHT = 512
 DIMENSION = 8
 SQ_SIZE = HEIGHT // DIMENSION
@@ -29,15 +29,19 @@ def main():
     sqSelected = ()
     playerClicks = []
     gameOver = False
+    playerOne = True
+    playerTwo = False
 
     while running:
+        isHuman = (gs.whiteToMove and playerOne) or (not gs.whiteToMove and playerTwo)
+
         for e in py.event.get():
 
             if e.type == py.QUIT:
                 running = False
 
             elif e.type == py.MOUSEBUTTONDOWN:
-                if not gameOver:
+                if not gameOver and isHuman:
                     location = py.mouse.get_pos()
                     col = location[0] // SQ_SIZE 
                     row = location[1] // SQ_SIZE
@@ -67,6 +71,7 @@ def main():
                     gs.undoMove()
                     moveMade = True
                     animate = False
+                    gameOver = False
                 if e.key == py.K_r:
                     gs = GameState()
                     validMoves = gs.getValidMoves()
@@ -74,6 +79,15 @@ def main():
                     playerClicks = []
                     moveMade = False
                     animate = False
+                    gameOver = False
+
+        if not gameOver and not isHuman:
+            robotMove = Robot.findBestMoveMinMax(gs, validMoves)
+            if robotMove is None:
+                robotMove = Robot.findRandomMove(validMoves)
+            gs.makeMove(robotMove)
+            moveMade = True
+            animate = True
 
         if moveMade:
             if animate:
